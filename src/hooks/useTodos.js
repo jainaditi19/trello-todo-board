@@ -47,7 +47,37 @@ const useTodos = () => {
     }));
   };
 
-  return { columns, setColumns, addTodo };
+  const handleRenameTodo = (id, newTitle) => {
+    setColumns((prev) => {
+      const updated = {};
+      for (const col in prev) {
+        updated[col] = prev[col].map((todo) =>
+          todo.id === id ? { ...todo, todo: newTitle } : todo
+        );
+      }
+      return updated;
+    });
+  };
+
+
+  const handleDeleteTodo = (id) => {
+    setColumns((prev) => {
+      const updated = {};
+      for (const col in prev) {
+        updated[col] = prev[col].filter((todo) => todo.id !== id);
+      }
+      return updated;
+    });
+  };
+
+  return {
+    columns,
+    setColumns,
+    addTodo,
+    handleRenameTodo,
+    handleDeleteTodo,
+  };
+
 };
 
 export default useTodos;

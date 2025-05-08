@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const TodoCard = ({ todo, editingId, onRename }) => {
+const TodoCard = ({ todo, onRename, onDelete, isEditing, setEditingId }) => {
   const {
     attributes,
     listeners,
@@ -19,12 +19,13 @@ const TodoCard = ({ todo, editingId, onRename }) => {
   const [title, setTitle] = useState(todo.todo);
 
   useEffect(() => {
-    setTitle(todo.todo); // update local state if todo changes
+    setTitle(todo.todo);
   }, [todo.todo]);
 
-  const handleBlur = () => {
+  const handleSave = () => {
     if (title.trim()) {
       onRename(todo.id, title.trim());
+      setEditingId(null);
     }
   };
 
@@ -33,23 +34,30 @@ const TodoCard = ({ todo, editingId, onRename }) => {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
-      className="p-3 bg-gray-200 rounded shadow"
+      className="todo-card"
     >
-      {editingId === todo.id ? (
+      <div className="drag-handle" {...listeners}>☰</div> {/* Only this is draggable */}
+
+      {isEditing ? (
         <input
           autoFocus
           type="text"
-          className="w-full p-1"
+          className="edit-input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          onBlur={handleBlur}
+          onBlur={handleSave}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') e.target.blur();
+            if (e.key === 'Enter') handleSave();
           }}
         />
       ) : (
-        <p style={{cursor: 'pointer'}}>{todo.todo}</p>
+        <>
+          <p>{todo.todo}</p>
+          <div className="actions">
+            <button onClick={() => setEditingId(todo.id)}>Edit</button>
+            <button onClick={() => onDelete(todo.id)}>Delete</button>
+          </div>
+        </>
       )}
     </div>
   );

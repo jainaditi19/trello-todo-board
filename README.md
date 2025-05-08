@@ -74,3 +74,9 @@ Improve accessibility (keyboard drag support)
 Add animations on drag/drop using @dnd-kit/animations
 
 Improve mobile responsiveness and UI/UX styling
+
+# Hosted the code using GitHub Pages
+https://jainaditi19.github.io/trello-todo-board/
+
+# Link to code repository
+https://github.com/jainaditi19/trello-todo-board

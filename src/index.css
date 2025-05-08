@@ -30,14 +30,7 @@ body {
   display: flex;
   gap: 16px;
   overflow-x: auto;
-}
-
-.column {
-  background: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  min-width: 250px;
+  padding-bottom: 1rem;
 }
 
 .column-title {
@@ -103,11 +96,12 @@ body {
 }
 
 .column {
-  width: 300px;
-  background: #f9f9f9;
-  border-radius: 6px;
-  padding: 10px;
-  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+  min-width: 280px;
+  max-width: 320px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .todo-card {
@@ -136,4 +130,12 @@ body {
   background: #f0f0f0;
   border-radius: 4px;
   margin: 8px 0;
+}
+
+.drag-handle {
+  cursor: grab;
+  text-align: right;
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-bottom: 4px;
 }

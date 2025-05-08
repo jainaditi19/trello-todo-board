@@ -3,7 +3,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import TodoCard from './TodoCard';
 
-const ColumnTab = ({ status, todos, editingId, onRename }) => {
+const ColumnTab = ({ status, todos, editingId, onRename, onDelete, setEditingId }) => {
   const { setNodeRef } = useDroppable({ id: status });
 
   return (
@@ -19,6 +19,9 @@ const ColumnTab = ({ status, todos, editingId, onRename }) => {
               todo={todo}
               editingId={editingId}
               onRename={onRename}
+              onDelete={onDelete}
+              isEditing={editingId === todo.id}
+              setEditingId={setEditingId}
             />
           ))
         )}

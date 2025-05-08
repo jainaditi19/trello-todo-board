@@ -15,7 +15,7 @@ import useTodos from '../hooks/useTodos';
 import ColumnTab from './ColumnTab';
 
 const Board = () => {
-  const { columns, setColumns } = useTodos();
+  const { columns, setColumns, addTodo, handleRenameTodo, handleDeleteTodo } = useTodos();
   const [editingId, setEditingId] = useState(null);
 
   const sensors = useSensors(useSensor(PointerSensor));
@@ -26,27 +26,14 @@ const Board = () => {
       todo: '',
       completed: false,
     };
-  
+
     setColumns((prev) => ({
       ...prev,
       Pending: [newTodo, ...prev.Pending],
     }));
-    setEditingId(newTodo.id); // Enable editing mode for the new task
+    setEditingId(newTodo.id);
   };
-  
-  const handleRenameTodo = (id, newTitle) => {
-    setColumns((prev) => {
-      const updated = { ...prev };
-      for (const col in updated) {
-        updated[col] = updated[col].map((todo) =>
-          todo.id === id ? { ...todo, todo: newTitle } : todo
-        );
-      }
-      return updated;
-    });
-    setEditingId(null);
-  };
-  
+
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -110,6 +97,8 @@ const Board = () => {
                 todos={todos}
                 editingId={editingId}
                 onRename={handleRenameTodo}
+                onDelete={handleDeleteTodo}
+                setEditingId={setEditingId}
               />
             </SortableContext>
           ))}
